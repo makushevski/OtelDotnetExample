@@ -6,26 +6,32 @@ using OtelDotnetExample.Api.Client.Models;
 
 namespace OtelDotnetExample.Api.Client;
 
-public class OtelDotnetExampleClient
+public interface IOtelDotnetExampleApiClient
+{
+    public Task<WeatherModel> GetWeatherDataAsync();
+}
+
+public class OtelDotnetExampleApiClient : IOtelDotnetExampleApiClient
 {
     private readonly HttpClient _httpClient;
 
-    public OtelDotnetExampleClient(HttpClient httpClient)
+    public OtelDotnetExampleApiClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
     
-    public OtelDotnetExampleClient(Uri apiBaseUri)
+    public OtelDotnetExampleApiClient(Uri apiBaseUri)
     {
         _httpClient = new HttpClient();
         _httpClient.BaseAddress = apiBaseUri;
     }
 
-    public async Task<WeatherResult> GetWeatherDataAsync()
+    public async Task<WeatherModel> GetWeatherDataAsync()
     {
         var c = await _httpClient.GetAsync("/v1/weather").ConfigureAwait(false);
         var readAsStringAsync = await c.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<WeatherResult>(readAsStringAsync) ?? new WeatherResult
+        var weatherDataAsync = JsonSerializer.Deserialize<WeatherModel>(readAsStringAsync, JsonSerializerOptions.Web);
+        return weatherDataAsync ?? new WeatherModel
         {
             StatusCode = 500,
             Message = "Error getting weather data"

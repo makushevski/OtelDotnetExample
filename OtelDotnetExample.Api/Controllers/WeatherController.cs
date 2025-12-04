@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OtelDotnetExample.Api.Models;
 
 namespace OtelDotnetExample.Api.Controllers
 {
@@ -10,7 +11,11 @@ namespace OtelDotnetExample.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWeather()
         {
-            return Ok("Weather data: 23 degrees");
+            return Ok(new WeatherResponse()
+            {
+                Temperature = 23,
+                Humidity = 80,
+            });
         } 
     }
 }

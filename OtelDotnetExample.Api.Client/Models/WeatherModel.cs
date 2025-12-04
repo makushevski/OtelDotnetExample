@@ -1,6 +1,6 @@
 ﻿namespace OtelDotnetExample.Api.Client.Models;
 
-public record WeatherResult : BaseResponseModel
+public record WeatherModel : BaseModel
 {
     public int Temperature { get; init; }
     public int Humidity { get; init; }
