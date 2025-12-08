@@ -36,6 +36,5 @@ public class OtelDotnetExampleApiClient : IOtelDotnetExampleApiClient
             StatusCode = 500,
             Message = "Error getting weather data"
         };
-        ;
     }
 }
