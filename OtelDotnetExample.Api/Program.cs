@@ -12,8 +12,12 @@ namespace OtelDotnetExample.Api
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
             builder.Services.AddDbContext<PgContext>(optionsBuilder =>
-                optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PgContext"), 
-                    contextOptionsBuilder => contextOptionsBuilder.MigrationsAssembly(Assembly.GetAssembly(typeof(InitDbMigration))!)));
+            {
+                var connectionString = builder.Configuration.GetConnectionString("PgContext");
+                optionsBuilder.UseNpgsql(connectionString,
+                    contextOptionsBuilder =>
+                        contextOptionsBuilder.MigrationsAssembly(Assembly.GetAssembly(typeof(InitDbMigration))!));
+            });
             
             //http://localhost:5001/v1/weather
             builder.WebHost.UseUrls("http://localhost:5001");
