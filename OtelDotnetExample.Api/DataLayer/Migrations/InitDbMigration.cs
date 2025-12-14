@@ -1,21 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+using OtelDotnetExample.Api.DataLayer.DbModels;
 
 namespace OtelDotnetExample.Api.DataLayer.Migrations;
 
+[DbContext(typeof(PgContext))]
+[Migration("202512080001_InitDb")]
 public class InitDbMigration : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
     {
-        migrationBuilder.CreateTable("weather-data", builder =>
-        {
-            return new[]
+        migrationBuilder.CreateTable(
+            name: "weather_data",
+            columns: table => new
             {
-                builder.Column<Guid>(name: "id", nullable: false),
-                builder.Column<int>(name: "temperature", nullable: false),
-                builder.Column<int>(name: "humidity", nullable: false),
-            };
-        });
-        
-        migrationBuilder.InsertData("weather-data", ["id", "temperature", "humidity"], [Guid.NewGuid(), 20, 80]);
+                id = table.Column<Guid>(type: "uuid", nullable: false),
+                temperature = table.Column<int>(type: "integer", nullable: false),
+                humidity = table.Column<int>(type: "integer", nullable: false),
+            },
+            constraints: table => { table.PrimaryKey("PK_weather_data", x => x.id); });
+
+    }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropTable("weather_data");
     }
 }
