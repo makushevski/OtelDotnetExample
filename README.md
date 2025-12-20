@@ -3,10 +3,10 @@
 Тестовый пример .NET 10 сервисов с OpenTelemetry (логи/трейсы/метрики) и готовым `docker-compose`, который поднимает всё окружение включая SigNoz.
 
 В стеке:
-- `gateway` — входной API (Swagger) и вызов `api`
-- `api` — пример сервиса с БД (PostgreSQL) + задержки/ошибки для демонстрации
-- `postgres` — данные приложения
-- `signoz` + `otel-collector` + `clickhouse` — хранение и UI для телеметрии
+- `gateway` - входной API (Swagger) и вызов `api`
+- `api` - пример сервиса с БД (PostgreSQL) + задержки/ошибки для демонстрации
+- `postgres` - данные приложения
+- `signoz` + `otel-collector` + `clickhouse` - хранение и UI для телеметрии
 
 ## Быстрый старт
 
@@ -23,9 +23,9 @@
 
 ## Где смотреть в SigNoz
 
-- Трейсы: `APM` / `Traces` — фильтрация по `service.name`, поиск медленных запросов по `duration`, проваливание в waterfall.
-- Метрики: `Metrics` — `http.server.request.duration`, `http.server.request.count`, `process.runtime.dotnet.*` и т.п.
-- Логи: `Logs` — логи приложений, корреляция с трейсами через `trace_id` (если отображается в UI/полях лога).
+- Трейсы: `APM` / `Traces` - фильтрация по `service.name`, поиск медленных запросов по `duration`, проваливание в waterfall.
+- Метрики: `Metrics` - `http.server.request.duration`, `http.server.request.count`, `process.runtime.dotnet.*` и т.п.
+- Логи: `Logs` - логи приложений, корреляция с трейсами через `trace_id` (если отображается в UI/полях лога).
 
 ## Конфигурация
 
